@@ -62,7 +62,7 @@ app.get('/profile', function(req, res){
     var wishes = [];
 
     //Grab Contact
-    conn.query("SELECT Id, FirstName, LastName, Phone, Email, customerID__c FROM Contact WHERE Id = '" + sessionContact + "'", function(err, result) {
+    conn.query("SELECT Id, FirstName, LastName, Phone, Email FROM Contact WHERE Id = '" + sessionContact + "'", function(err, result) {
         if (err) { return console.error(err); }
         console.log("Profile Render: Contact result size is " + result.totalSize);
         console.log("Profile Render: Number of contacts found is " + result.records.length);
@@ -71,6 +71,23 @@ app.get('/profile', function(req, res){
         console.log("Profile Render: Contact retrieved " + JSON.stringify(contactRecords));
         console.log("Profile Render: Contact has external ID of " + contactRecords[0].customerID__c);
 
+        //Render the page once records are fetched
+        res.render('profile', {
+            community_url: COMMUNITY_URL,
+            app_id: APP_ID,
+            callback_url: OAUTH_CALLBACK_URL,
+            background: BG_FAKE,
+            static_asset_url: STATIC_ASSET_URL,
+            contactRecords: contactRecords
+            /*
+            ,
+            bookingRecords: bookingRecords,
+            searchRecords: searchRecords,
+            wishes: wishes
+            */
+        }) 
+
+        /*
         //Grab Wishlist
         conn.query("SELECT Contact__c,CreatedDate,Id,Wish_Detail__c FROM Wish__c WHERE Contact__c = '" + sessionContact + "'", function(err, result) {
             if (err) { return console.error(err); }
@@ -117,6 +134,7 @@ app.get('/profile', function(req, res){
             });
     
         });
+        */
 
     });
 
