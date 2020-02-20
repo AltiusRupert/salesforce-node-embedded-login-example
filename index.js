@@ -78,13 +78,10 @@ app.get('/profile', function(req, res){
             callback_url: OAUTH_CALLBACK_URL,
             background: BG_FAKE,
             static_asset_url: STATIC_ASSET_URL,
-            contactRecords: contactRecords
-            /*
-            ,
+            contactRecords: contactRecords,
             bookingRecords: bookingRecords,
             searchRecords: searchRecords,
             wishes: wishes
-            */
         }) 
 
         /*
